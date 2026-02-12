@@ -1,0 +1,432 @@
+aws code deploy 
+
+ecrire du code: cloud9(VSC) 
+manager et stocker le code: AWS CODE COMMIT(git et github)
+build et le test: aws codebuild 
+deploy: aws codedeploy(automatiser)
+    ---> du travail 
+    ---> error 
+logging et le monitoring: cloudtrail et cloudwatch 
+aws codepipeline
+
+deploy/release ..........> EC2 ou lambda function
+
+plusierus serveur (deployment group)
+
+
+
+
+
+Pourquoi utiliser AWS CodeDeploy ? 🤔
+
+AWS CodeDeploy est un service qui simplifie
+ et automatise le déploiement d'applications
+  vers différents environnements. Comparons les
+   méthodes de déploiement manuelles, 
+   basées sur des scripts, et l'utilisation 
+   d'AWS CodeDeploy.
+
+1️⃣ Déploiement manuel (Manual Deployment) 🛠️
+Avec le manuel, vous déployez directement 
+sur le serveur (avec des commandes manuelles).
+Inconvénients (Disadvantages) :
+
+🕒 Consomme du temps (time-consuming) : 
+    Chaque étape doit être réalisée à la main.
+❌ Source d'erreurs (error-prone) : 
+    Les erreurs humaines sont fréquentes.
+🌀 Manque de cohérence (lack of consistency) :
+     Le déploiement peut varier d'un environnement à l'autre.
+⚡ Utilisation inefficace des ressources (inefficient resource utilization) : 
+    Le processus est peu optimisé.
+📉 Évolutivité limitée (limited scalability) :
+     Difficile à appliquer à de nombreux serveurs.
+🚫 Pas de mécanisme de retour arrière (no rollback mechanism) : 
+    Impossible d'annuler facilement un déploiement 
+    en cas de problème.
+    
+2️⃣ Déploiement avec scripts (Script-based Deployment) 💻
+Vous écrivez du code pour automatiser le déploiement.
+Inconvénients (Disadvantages) :
+
+✍️ Écrire les scripts (write script) : 
+    Cela demande du temps et des compétences.
+🧩 Complexité (complexity) : 
+    Plus l'application est grande, plus le script devient
+     complexe.
+⚠️ Gestion limitée des erreurs (limited error handling) :
+     Les scripts ne gèrent pas toujours bien les échecs.
+🌀 Manque de cohérence (inconsistency) :
+     Les résultats peuvent varier selon l'environnement.
+🚫 Pas de fonctionnalités avancées (lack of advanced features) : 
+    Comme le basculement de trafic.
+📉 Évolutivité limitée (limited scalability) :
+     Pas idéal pour de grandes infrastructures.
+🔧 Entretien lourd (maintenance overhead) : 
+    Les scripts doivent être constamment mis à jour.
+
+    
+🌟 Avantages d'AWS CodeDeploy 🌟
+Pourquoi choisir AWS CodeDeploy plutôt que d'autres outils ?
+
+✅ Supporte plusieurs types de déploiements (Supports different types of deployment).
+🛠️ Facile à intégrer avec d'autres outils (Easy to work with other tools).
+⚙️ Configuration simple (Easy to setup).
+🛠️ Personnalisation (Allows customization of your deployment).
+🔄 Rollback facile (Rollback if something goes wrong).
+⏳ Gain de temps (Saves time).
+🔗 Intégration fluide (Easy integration).
+🌍 Déploiement multi-environnements (Supports multiple environments: dev, test, prod).
+🚦 Basculement de trafic (Traffic shifting).
+💰 Économique (Cost-effective).
+
+
+
+
+
+📋 Stratégies de déploiement (Deployment Strategies)
+
+1️⃣ Blue/Green Deployment 🚦
+
+Création de deux environnements :
+     l'ancien (blue) et le nouveau (green). 
+     Une fois validé, le trafic est basculé 
+     vers le nouvel environnement.
+
+
+2️⃣ Rolling Deployment 🔄
+
+Mise à jour progressive des serveurs en 
+déployant le code par lot.
+
+
+3️⃣ Canary Deployment 🐤
+
+Déploiement sur une petite portion de serveurs 
+pour tester avant un déploiement complet.
+
+
+4️⃣ Shadow Deployment 🌘
+
+Déploiement silencieux pour surveiller 
+le comportement de la nouvelle version sans
+ affecter les utilisateurs.
+
+
+5️⃣ A/B Deployment 🅰️🅱️
+
+Comparaison de deux versions de l'application 
+pour évaluer laquelle est la meilleure.
+
+6️⃣ Continuous Deployment ♾️
+
+Automatisation complète : chaque changement validé dans
+ le code est immédiatement déployé.
+
+7️⃣ In-Place Deployment 📍
+
+Mise à jour directe sur les serveurs existants 
+sans créer de nouvel environnement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AWS CodeDeploy est un service de déploiement entièrement géré qui automatise
+ le déploiement des applications sur des plateformes variées :
+
+💻 Amazon EC2 (instances virtuelles).
+🌐 AWS Lambda (applications serverless).
+🛢️ Amazon ECS (services conteneurisés).
+🏠 Serveurs locaux (On-premises).
+
+L'objectif principal de CodeDeploy est d'assurer 
+des déploiements fiables, rapides, et sans interruption (zéro downtime).
+
+Les Composants Essentiels d’AWS CodeDeploy 🔑
+1. Application 🏗️
+L'application représente le groupe logique des ressources que vous souhaitez déployer.
+
+Exemple : Une application web en Python/Django ou PHP pour un site e-commerce.
+2. Plateforme de Calcul 💻
+C’est la destination où votre application sera déployée. AWS CodeDeploy prend en charge les plateformes suivantes :
+
+Amazon EC2 : Instances virtuelles.
+AWS Lambda : Fonctionnalités serverless.
+Amazon ECS : Conteneurs (Docker ou Kubernetes).
+Serveurs locaux (On-premises) : Vos propres serveurs physiques.
+
+3. IAM Instance Profile 🛡️
+Le profil d’instance IAM est un rôle attaché aux instances EC2 ou serveurs locaux. Il permet à CodeDeploy d'accéder aux ressources nécessaires pour gérer les déploiements (par ex., récupérer la révision depuis S3).
+
+Exemple : IAM role avec les permissions pour accéder à des buckets S3 et logs CloudWatch.
+4. Service Role 🎩
+Un rôle de service IAM donne à AWS CodeDeploy les autorisations nécessaires pour effectuer des actions, telles que :
+
+Mettre à jour les instances EC2.
+Modifier les services ECS.
+Exécuter des commandes sur des fonctions Lambda.
+Exemple : Rôle IAM avec la politique AWSCodeDeployRole.
+
+5. Revision 📦
+C’est le contenu de déploiement, c'est-à-dire les fichiers qui définissent ce qui doit être déployé. Les révisions peuvent inclure :
+
+Code de l'application (ex. Python, Node.js).
+Fichiers de configuration (JSON, YAML).
+Scripts (ex. Bash).
+Les révisions sont stockées dans :
+
+Amazon S3.
+GitHub ou un autre dépôt.
+6. Target Revision 🎯
+La révision cible est la version spécifique de votre application que vous souhaitez déployer. Cela permet de déployer des versions précises, comme v1.2.3.
+
+7. Application Specification File 📄
+Un AppSpec file est utilisé pour définir comment le déploiement doit être effectué sur chaque plateforme. Par exemple :
+
+Où copier les fichiers.
+Quelles commandes exécuter avant, pendant ou après le déploiement.
+Comment gérer les hooks de cycle de vie.
+Format :
+
+YAML pour EC2 et on-premises.
+JSON pour AWS Lambda.
+8. CodeDeploy Agent 🤖
+L'agent CodeDeploy est un logiciel installé sur des instances EC2 ou serveurs locaux. Il gère les étapes suivantes :
+
+Récupère la révision à partir de S3/GitHub.
+Exécute les commandes définies dans le fichier AppSpec.
+Signale l’état du déploiement (réussi ou échoué).
+9. Instance Health ❤️
+L’état de santé des instances est essentiel pendant un déploiement. AWS CodeDeploy surveille les cibles pour s'assurer qu'elles sont fonctionnelles. Si une instance échoue, le déploiement peut être annulé.
+
+Les Types de Déploiement 🚦
+1. AllAtOnce 🚀
+Description : Toutes les cibles reçoivent la mise à jour en même temps.
+Avantage : Rapide.
+Inconvénient : Risque élevé si le déploiement échoue.
+Utilisé avec : EC2, on-premises, Lambda.
+2. Rolling 🔄
+Description : Mise à jour progressive par petits groupes d'instances (ex. 25% à la fois).
+Avantage : Moins de risque d’interruption.
+Inconvénient : Plus lent que AllAtOnce.
+Utilisé avec : EC2, ECS.
+3. Rolling with Additional Batch ➕
+Description : Ajoute une ou plusieurs instances supplémentaires au pool avant de commencer le déploiement, puis les retire à la fin.
+Avantage : Minimise les risques de surcharge.
+Utilisé avec : EC2, ECS.
+4. Blue/Green 🟦🟩
+Description : Déploie la nouvelle version dans un environnement distinct. Une fois validée, le trafic est redirigé vers la nouvelle version.
+Avantage : Zéro interruption.
+Inconvénient : Coûte plus cher.
+Utilisé avec : EC2, ECS, Lambda.
+5. Canary 🐦
+Description : Déploie sur un petit pourcentage d’instances (ex. 10%) avant de déployer sur le reste.
+Avantage : Surveillance facile des problèmes.
+Utilisé avec : Lambda, ECS.
+6. Linear 📊
+Description : Déploie des lots d’instances à intervalles réguliers.
+Avantage : Similaire à Rolling mais avec un contrôle temporel.
+Utilisé avec : Lambda, ECS.
+7. Immutable 🛡️
+Description : Crée de nouvelles instances pour déployer la mise à jour, puis détruit les anciennes.
+Avantage : Très sécurisé.
+Utilisé avec : EC2.
+Quel Type de Déploiement pour Quel Serveur ?
+Plateforme	Déploiement Recommandé
+EC2	Rolling, Immutable, Blue/Green
+Lambda	Canary, AllAtOnce, Linear
+ECS	Blue/Green, Rolling
+On-premises	Rolling, AllAtOnce
+Exemple de Scénario Complet 🌟
+Scénario 1 : Déploiement d'une Application Django
+Plateforme : Instances EC2.
+Fichiers nécessaires :
+Code de l'application stocké dans S3.
+Fichier AppSpec (YAML) pour définir le déploiement.
+Type de déploiement : Rolling (25 % des instances à la fois).
+Étapes :
+Créer un groupe de déploiement avec les instances EC2 taguées Environment=Production.
+Configurer un rôle IAM avec accès à S3 et CodeDeploy.
+Lancer le déploiement via AWS CodeDeploy.
+Questions pour Révision ❓
+Qu’est-ce qu’un IAM Instance Profile ?
+
+Réponse : Un rôle IAM attaché aux instances EC2 pour permettre l’accès aux ressources (ex. S3).
+À quoi sert le fichier AppSpec ?
+
+Réponse : Définir comment et où les fichiers doivent être déployés, et quelles commandes exécuter.
+Quel type de déploiement garantit zéro interruption ?
+
+Réponse : Le déploiement Blue/Green.
+Quelles plateformes sont prises en charge par AWS CodeDeploy ?
+
+Réponse : EC2, Lambda, ECS, on-premises.
+Conclusion 🌟
+AWS CodeDeploy est un outil puissant pour automatiser les déploiements.
+Les rôles IAM, AppSpec files, et types de déploiements doivent être bien configurés.
+Le choix du type de déploiement dépend de la plateforme et de vos besoins en termes de disponibilité.
+
+
+
+
+
+arn:aws:iam::148930418126:role/CodeDeployServiceRole
+
+
+Dans cet exercice, vous allez configurer AWS CodeDeploy en effectuant les étapes suivantes :
+
+Créer un compte AWS avec des permissions limitées. acces programmatique(IAM)
+Configurer un rôle de service pour CodeDeploy.
+Restreindre les permissions attribuées à CodeDeploy.
+
+Créer un profil d’instance IAM pour Amazon EC2.
+
+ec2 ----> s3 
+s3 name: newbucketcodedeploy
+arn:aws:s3:::newbucketcodedeploy
+s3---->> creer policies -----> attacher cela a un role qui est attache au service ec2 
+
+
+
+
+
+
+
+
+
+
+
+
+
+✔️ Création d’un compte AWS avec un utilisateur IAM restreint.
+✔️ Mise en place d’un rôle de service pour CodeDeploy.
+✔️ Restriction des permissions accordées à CodeDeploy.
+✔️ Création d’un profil d’instance IAM pour EC2.
+
+💡 Prochaines étapes :
+
+Installer l’agent CodeDeploy sur l’instance EC2.
+Déployer une première application avec AWS CodeDeploy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Configuration d'AWS CodeDeploy
+1. Configuration du compte AWS
+Assurez-vous de posséder un compte AWS et un utilisateur IAM avec des permissions administratives.
+Activez l'accès programmatique pour l'utilisateur IAM afin de permettre les interactions avec les services AWS via la CLI ou les SDKs.
+2. Création d'un rôle de service pour CodeDeploy
+Un rôle de service est nécessaire pour accorder à CodeDeploy les permissions requises pour effectuer des actions en votre nom.
+Créez ce rôle via la console de gestion AWS, en spécifiant CodeDeploy comme entité de confiance et en lui attribuant la politique gérée appropriée.
+3. Limiter les permissions de l'utilisateur IAM
+Restreignez les permissions de l'utilisateur IAM afin de minimiser les risques de sécurité et d'empêcher les actions non autorisées.
+Définissez les permissions nécessaires dans la politique IAM pour permettre uniquement les actions indispensables aux tâches de CodeDeploy.
+4. Création d'un profil d'instance IAM pour les instances EC2 (si nécessaire)
+Requis pour le déploiement sur EC2 afin d'accorder aux instances l'accès aux ressources AWS, telles que les buckets S3.
+Créez un rôle IAM (profil d'instance) et attachez-lui des politiques permettant l'accès aux ressources nécessaires.
+5. Installation de l’agent CodeDeploy (si déploiement sur EC2/serveurs sur site)
+L’agent CodeDeploy est requis sur chaque instance EC2 ou serveur sur site du groupe de déploiement.
+Il coordonne avec le service CodeDeploy pour exécuter les tâches de déploiement.
+Composants d'AWS CodeDeploy
+1. Application
+Un conteneur ou un regroupement du logiciel à déployer, similaire à l'organisation d'outils dans une boîte à outils.
+2. Plateforme de calcul
+La plateforme cible sur laquelle vous déploierez votre application, incluant Amazon EC2, AWS Lambda, les serveurs sur site et Amazon ECS.
+3. Configuration du déploiement
+Ensemble de règles et paramètres définissant le processus de déploiement, y compris la stratégie, l'environnement, le routage du trafic et la gestion des erreurs.
+4. Groupe de déploiement
+Un ensemble de ressources (comme des instances EC2) ciblées pour le déploiement. Il spécifie où l’application sera déployée.
+5. Type de déploiement
+La méthode de déploiement, soit in-place (mise à jour directe sur l’ensemble des instances cibles), soit blue/green (création d’un environnement dupliqué pour tests avant de rediriger le trafic).
+6. Profil d'instance IAM
+Un rôle IAM attaché aux instances EC2, leur accordant les permissions nécessaires pour accéder aux ressources AWS durant le déploiement.
+7. Révision
+La nouvelle version de votre application logicielle, packagée avec tous les fichiers et configurations nécessaires, prête à être déployée.
+8. Rôle de service
+Un rôle IAM spécifique qui accorde à CodeDeploy la permission d'accéder à d'autres services AWS et d'exécuter des tâches liées au déploiement.
+9. Révision cible
+La version la plus récente de l'application que CodeDeploy va déployer sur les instances spécifiées.
+10. Composants supplémentaires
+Fichiers de spécification de l'application, État de santé des instances, Agent CodeDeploy sont d'autres composants importants à connaître pour gérer les déploiements et répondre aux besoins spécifiques.
+Bonnes pratiques et conseils
+Comprendre les stratégies de déploiement :
+Choisissez la bonne stratégie de déploiement (in-place ou blue/green) en fonction des besoins de votre application et de l'importance d'un service ininterrompu.
+Automatiser et sécuriser :
+Utilisez des rôles IAM et des profils d'instance pour gérer l’accès de manière automatisée et sécurisée.
+Maintenez votre agent CodeDeploy à jour pour garantir des performances et une sécurité optimales.
+Surveiller et journaliser :
+Exploitez les services AWS comme CloudWatch pour surveiller les déploiements et journaliser les activités à des fins de diagnostic et de référence future.
+Pratiquer les retours en arrière :
+Familiarisez-vous avec les fonctionnalités de rollback de CodeDeploy afin de revenir rapidement à une version précédente en cas d’échec du déploiement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

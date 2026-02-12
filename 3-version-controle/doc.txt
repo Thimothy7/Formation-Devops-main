@@ -1,0 +1,37 @@
+CODE SOURCE BUILD TEST DEPLOY
+
+    # REPERTOIRE(CONTROLE DE VERSION)
+
+    # OUTILS: AWS CODECOMMIT 
+      LES ALTERNATIF: GITHUB, GITLAB, BITBUKET
+BONJOUR TEST      
+BOOK1 BOOK2
+
+1----CONTROLE DE VERSION ROLE (git(git bash, git cmd, git UI ) et github)
+
+    # SOFTWARE DEVELOP
+        ---VERSION 
+        -- BRANCHING (feature, bug, documentor, refactor)
+        -- MERGING 
+        -- COLABORATION 
+
+    # CI/CD CONCEPT 
+        -- CI 
+        -- CD 
+
+    # COMPLIANCE 
+
+
+    # TEAN COLABORATION 
+
+GIT (DISTRIBUTED)  (FORK) 
+SVN ET CVS  (CENTRALIZED) DEV1 ---- DEV2j  
+
+git init 
+git status 
+git branch
+git add . 
+git commit -m 
+git log 
+git diff id 
+git reset --hard id 
