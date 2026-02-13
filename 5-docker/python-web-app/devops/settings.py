@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-votlwy(g6=b#-wgy@*#6%in&l!=b)%vq+ey9@uek%_4x7f-o3i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "18.234.225.55"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
